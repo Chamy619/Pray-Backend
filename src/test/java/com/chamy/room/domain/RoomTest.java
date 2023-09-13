@@ -70,4 +70,29 @@ class RoomTest {
         assertEquals(exception.getErrorCode(), ErrorCode.COMMON_INVALID_PARAMETER);
     }
 
+    @Test
+    @DisplayName("방 이름 변경")
+    void changeName() {
+        // given
+        String name = "은혜 다락방";
+
+        // when
+        room.changeName(name);
+
+        // then
+        assertEquals(room.getName(), name);
+    }
+
+    @Test
+    @DisplayName("비어 있는 이름으로 방 이름 변경")
+    void changeNameEmptyName() {
+        // given
+        String name = "";
+
+        // when
+        BaseException exception = assertThrows(BaseException.class, () -> room.changeName(name));
+
+        // then
+        assertEquals(exception.getErrorCode(), ErrorCode.COMMON_INVALID_PARAMETER);
+    }
 }
