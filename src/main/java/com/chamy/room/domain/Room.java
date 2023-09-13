@@ -1,5 +1,6 @@
 package com.chamy.room.domain;
 
+import com.chamy.common.exception.EntityNotFoundException;
 import com.chamy.common.exception.InvalidParamException;
 import com.google.common.collect.Lists;
 import io.micrometer.common.util.StringUtils;
@@ -44,5 +45,19 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public Person findPerson(String personToken) {
+        for (Person person : people) {
+            if (person.isSameToken(personToken)) {
+                return person;
+            }
+        }
+
+        throw new EntityNotFoundException("Can not found person : " + personToken);
     }
 }

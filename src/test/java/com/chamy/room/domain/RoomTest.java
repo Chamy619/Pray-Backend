@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTest {
@@ -94,5 +96,44 @@ class RoomTest {
 
         // then
         assertEquals(exception.getErrorCode(), ErrorCode.COMMON_INVALID_PARAMETER);
+    }
+
+    @Test
+    @DisplayName("토큰으로 사람 찾기")
+    void findPerson() {
+        // given
+        String soyeon = "소연";
+        String chaehoon = "채훈";
+        String jisoo = "지수";
+        room.addPerson(soyeon);
+        room.addPerson(chaehoon);
+        room.addPerson(jisoo);
+        List<Person> people = room.getPeople();
+        Person sy = people.stream().filter(person -> person.isSameName(soyeon)).findFirst().get();
+
+        // when
+        Person result = room.findPerson(sy.getToken());
+
+        // then
+        assertEquals(result.getName(), soyeon);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 토큰으로 사람 찾기")
+    void findPersonNotExistToken() {
+        // given
+        String soyeon = "소연";
+        String chaehoon = "채훈";
+        String jisoo = "지수";
+        room.addPerson(soyeon);
+        room.addPerson(chaehoon);
+        room.addPerson(jisoo);
+        String token = "not_exist_token";
+
+        // when
+        BaseException exception = assertThrows(BaseException.class, () -> room.findPerson(token));
+
+        // then
+        assertEquals(exception.getErrorCode(), ErrorCode.COMMON_ENTITY_NOT_FOUND);
     }
 }
