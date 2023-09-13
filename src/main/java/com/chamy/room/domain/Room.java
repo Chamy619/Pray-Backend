@@ -30,6 +30,14 @@ public class Room {
         people.add(new Person(name));
     }
 
+    public void changeName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            throw new InvalidParamException("Name is empty");
+        }
+
+        this.name = name;
+    }
+
     public List<String> getPeopleName() {
         return people.stream().map(Person::getName).toList();
     }
