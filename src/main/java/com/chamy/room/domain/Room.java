@@ -60,4 +60,9 @@ public class Room {
 
         throw new EntityNotFoundException("Can not found person : " + personToken);
     }
+
+    public void addPrayTopic(String personToken, String topic) {
+        Person person = findPerson(personToken);
+        person.addPrayTopic(topic);
+    }
 }

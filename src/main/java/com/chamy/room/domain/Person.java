@@ -44,4 +44,12 @@ public class Person {
 
         return this.token.equals(token);
     }
+
+    public void addPrayTopic(String topic) {
+        prays.add(new Pray(topic));
+    }
+
+    public List<String> getPrayTopics() {
+        return prays.stream().map(Pray::getTopic).toList();
+    }
 }
