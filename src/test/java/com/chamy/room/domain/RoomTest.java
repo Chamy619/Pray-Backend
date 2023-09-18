@@ -136,4 +136,18 @@ class RoomTest {
         // then
         assertEquals(exception.getErrorCode(), ErrorCode.COMMON_ENTITY_NOT_FOUND);
     }
+
+    @Test
+    @DisplayName("기도제목 추가")
+    void addPrayTopic() {
+        // given
+        room.addPerson("채훈");
+        Person chaehoon = room.getPeople().stream().filter(person -> person.isSameName("채훈")).findFirst().get();
+
+        // when
+        room.addPrayTopic(chaehoon.getToken(), "하나님 사랑하기");
+
+        // then
+        assertEquals(chaehoon.getPrayTopics().get(0), "하나님 사랑하기");
+    }
 }
