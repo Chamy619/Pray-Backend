@@ -7,10 +7,10 @@ public class TokenGenerator {
     private static final int TOKEN_LENGTH = 20;
 
     public static String generate() {
-        return RandomStringUtils.random(TOKEN_LENGTH);
+        return RandomStringUtils.randomAlphanumeric(TOKEN_LENGTH);
     }
 
     public static String generate(String prefix) {
-        return prefix + RandomStringUtils.random(TOKEN_LENGTH - prefix.length());
+        return prefix + RandomStringUtils.randomAlphanumeric(TOKEN_LENGTH - prefix.length());
     }
 }
