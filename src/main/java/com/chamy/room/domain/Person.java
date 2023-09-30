@@ -4,9 +4,11 @@ import com.chamy.common.exception.InvalidParamException;
 import com.chamy.common.util.TokenGenerator;
 import com.google.common.collect.Lists;
 import io.micrometer.common.util.StringUtils;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class Person {
 
     private static final String PREFIX = "per_";
@@ -23,14 +25,6 @@ public class Person {
         this.token = TokenGenerator.generate(PREFIX);
         this.name = name;
         this.prays = Lists.newArrayList();
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public boolean isSameName(String name) {
@@ -51,5 +45,12 @@ public class Person {
 
     public List<String> getPrayTopics() {
         return prays.stream().map(Pray::getTopic).toList();
+    }
+
+    public void removePray(String prayToken) {
+        prays.stream()
+                .filter(pray -> pray.isSameToken(prayToken))
+                .findAny()
+                .ifPresent(pray -> prays.remove(pray));
     }
 }

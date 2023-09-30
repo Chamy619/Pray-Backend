@@ -65,4 +65,10 @@ public class Room {
         Person person = findPerson(personToken);
         person.addPrayTopic(topic);
     }
+
+    public void removePray(String personToken, String prayToken) {
+        people.stream().filter(person -> person.isSameToken(personToken))
+                .findAny()
+                .ifPresent(person -> person.removePray(prayToken));
+    }
 }
